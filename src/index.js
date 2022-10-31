@@ -29,9 +29,9 @@ export const requestHeadersBlocklist = [
 
 /**
  *
- * @param {ServerResponse} res
- * @param {string} msg
- * @param {number} statusCode
+ * @param {ServerResponse} res the nodejs server response object
+ * @param {string} msg error message to log
+ * @param {number} statusCode status code to send
  * @returns {function(*): void}
  */
 export function makeErrorHandler(
@@ -48,9 +48,9 @@ export function makeErrorHandler(
 
 /**
  *
- * @param {ClientRequest} req
- * @param {Headers} fetchHeaders
- * @param {string[]} headersBlocklist
+ * @param {ClientRequest} req the nodejs client request object
+ * @param {Headers} fetchHeaders the headers object for the fetch request
+ * @param {string[]} headersBlocklist the headers to block from being forwarded
  */
 export function forwardRequestHeadersToFetch(
 	req,

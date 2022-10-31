@@ -1,3 +1,3 @@
-const lib = await import('./index.js')
-
-module.exports = lib
+module.exports = function () {
+	return import('./index.js')
+}

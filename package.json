@@ -1,6 +1,6 @@
 {
   "name": "node-fetch-request-proxy",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "proxy node http requests to fetch and pipe the results back to http response streams",
   "type": "module",
   "exports": {

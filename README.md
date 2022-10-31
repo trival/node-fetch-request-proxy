@@ -80,6 +80,19 @@ A little more verbose, but hey, it's fetch :)
 Requires `nodejs >= 18.0.0` because this is when `fetch` became natively
 available.
 
+With commonjs, use this code:
+
+```js
+const makeProxyHelpers = require('node-fetch-request-proxy')
+
+async function handler(request, result) {
+  const { forwardFetchResult, forwardRequestHeadersToFetch, makeErrorHandler } =
+    await makeProxyHelpers
+
+  // proceed as before ...
+}
+```
+
 Look at the source code, if you want to implement the details yourself, it is
 roughly 90 lines of sparsely commented code.
 
