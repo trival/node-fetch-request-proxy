@@ -78,7 +78,7 @@ async function handler(request, result) {
 A little more verbose, but hey, it's fetch :)
 
 Look at the source code, if you want to implement the details yourself, it is
-only 90 lines of commented code.
+roughly 90 lines of commented code.
 
 ## License
 
