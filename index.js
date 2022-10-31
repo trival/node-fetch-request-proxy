@@ -28,10 +28,10 @@ export const requestHeadersBlocklist = [
 ]
 
 /**
- *
+ * Makes an error handler that logs the error and ends the response with given error code
  * @param {ServerResponse} res the nodejs server response object
- * @param {string} msg error message to log
- * @param {number} statusCode status code to send
+ * @param {string} msg error message to log. Defaults to "Request streaming error"
+ * @param {number} statusCode status code to send. Defaults to 500
  * @returns {function(*): void}
  */
 export function makeErrorHandler(
@@ -47,7 +47,7 @@ export function makeErrorHandler(
 }
 
 /**
- *
+ * Adds all relevant request headers to the fetch request
  * @param {IncomingMessage} req the nodejs client request object
  * @param {Headers} fetchHeaders the headers object for the fetch request
  * @param {string[]} headersBlocklist the headers to block from being forwarded
@@ -73,9 +73,10 @@ export function forwardRequestHeadersToFetch(
 }
 
 /**
- * @param {Response} fetchResult
- * @param {ServerResponse} res
- * @param {(err: any) => void} onError
+ * Forwards the fetch response body to the nodejs response by piping the streams
+ * @param {Response} fetchResult the fetch response object to forward
+ * @param {ServerResponse} res the nodejs server response object
+ * @param {(err: any) => void} onError the error handler
  */
 export function forwardFetchResult(fetchResult, res, onError) {
 	if (!fetchResult.ok) {
