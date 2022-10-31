@@ -1,5 +1,5 @@
 import { Readable } from 'node:stream'
-import { ServerResponse, ClientRequest } from 'node:http'
+import { ServerResponse, IncomingMessage } from 'node:http'
 
 // see https://fetch.spec.whatwg.org/#forbidden-header-name
 export const requestHeadersBlocklist = [
@@ -48,7 +48,7 @@ export function makeErrorHandler(
 
 /**
  *
- * @param {ClientRequest} req the nodejs client request object
+ * @param {IncomingMessage} req the nodejs client request object
  * @param {Headers} fetchHeaders the headers object for the fetch request
  * @param {string[]} headersBlocklist the headers to block from being forwarded
  */
@@ -57,7 +57,7 @@ export function forwardRequestHeadersToFetch(
 	fetchHeaders,
 	headersBlocklist = requestHeadersBlocklist,
 ) {
-	for (const [key, value] of Object.entries(req.getHeaders())) {
+	for (const [key, value] of Object.entries(req.headers)) {
 		if (headersBlocklist.includes(key)) {
 			// eslint-disable-next-line no-continue
 			continue
