@@ -27,10 +27,10 @@ function handler(req, res) {
 
   // prettier-ignore
   req
-		.pipe(request(newUrl))
-		.on('error', onError)
-		.pipe(res)
-		.on('error', onError)
+    .pipe(request(newUrl))
+    .on('error', onError)
+    .pipe(res)
+    .on('error', onError)
 }
 ```
 
@@ -77,8 +77,11 @@ async function handler(request, result) {
 
 A little more verbose, but hey, it's fetch :)
 
+Requires `nodejs >= 18.0.0` because this is when `fetch` became natively
+available.
+
 Look at the source code, if you want to implement the details yourself, it is
-roughly 90 lines of commented code.
+roughly 90 lines of sparsely commented code.
 
 ## License
 

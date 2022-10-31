@@ -1,5 +1,5 @@
-import { Readable } from 'stream'
-import { ServerResponse, ClientRequest } from 'http'
+import { Readable } from 'node:stream'
+import { ServerResponse, ClientRequest } from 'node:http'
 
 // see https://fetch.spec.whatwg.org/#forbidden-header-name
 export const requestHeadersBlocklist = [
@@ -27,17 +27,34 @@ export const requestHeadersBlocklist = [
 	'via',
 ]
 
-export const makeErrorHandler =
-	(res, msg = 'Request streaming error:', statusCode = 500) =>
-	(e) => {
+/**
+ *
+ * @param {ServerResponse} res
+ * @param {string} msg
+ * @param {number} statusCode
+ * @returns {function(*): void}
+ */
+export function makeErrorHandler(
+	res,
+	msg = 'Request streaming error:',
+	statusCode = 500,
+) {
+	return function (e) {
 		console.error(msg, e)
 		res.statusCode = statusCode
 		res.end()
 	}
+}
 
+/**
+ *
+ * @param {ClientRequest} req
+ * @param {Headers} fetchHeaders
+ * @param {string[]} headersBlocklist
+ */
 export function forwardRequestHeadersToFetch(
-	/** @type {ClientRequest} */ req,
-	/** @type {Headers} */ fetchHeaders,
+	req,
+	fetchHeaders,
 	headersBlocklist = requestHeadersBlocklist,
 ) {
 	for (const [key, value] of Object.entries(req.getHeaders())) {
@@ -81,7 +98,6 @@ export function forwardFetchResult(fetchResult, res, onError) {
 		} else {
 			res.end()
 		}
-		return
 	} catch (e) {
 		return onError(e)
 	}
