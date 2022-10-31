@@ -80,14 +80,14 @@ A little more verbose, but hey, it's fetch :)
 Requires `nodejs >= 18.0.0` because this is when `fetch` became natively
 available.
 
-With commonjs, use this code:
+This library is published as ESM only. With commonjs, use this code:
 
 ```js
-const makeProxyHelpers = require('node-fetch-request-proxy')
+const makeProxyHelpers = () => import('node-fetch-request-proxy')
 
 async function handler(request, result) {
   const { forwardFetchResult, forwardRequestHeadersToFetch, makeErrorHandler } =
-    await makeProxyHelpers
+    await makeProxyHelpers()
 
   // proceed as before ...
 }
